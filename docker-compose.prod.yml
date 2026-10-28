@@ -1,6 +1,6 @@
-# Production website for https://tohfaah.com. It joins the "cafechalao" network made by the backend
-# repository (CC-BEND), whose Caddy proxy gives it HTTPS. Start the backend first, then:
-#   docker compose -f docker-compose.prod.yml up -d --build
+# Production website for https://tohfaah.com (API: https://tohfaah.online). Serves on 127.0.0.1:3000;
+# point the VPS's web server / proxy (nginx, Caddy, …) for tohfaah.com at that port.
+#   git pull && docker compose -f docker-compose.prod.yml up -d --build
 services:
   web:
     build:
@@ -11,8 +11,4 @@ services:
         NEXT_PUBLIC_DEFAULT_TENANT: cafe-1bhk
         NEXT_PUBLIC_TENANT_LOCKED: "true"
     restart: unless-stopped
-
-networks:
-  default:
-    name: cafechalao
-    external: true
+    ports: ["127.0.0.1:3000:3000"]
