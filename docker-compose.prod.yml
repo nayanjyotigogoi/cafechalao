@@ -1,5 +1,5 @@
-# Production website for https://tohfaah.com (API: https://tohfaah.online). Serves on 127.0.0.1:3008 (3000, 3006 and 3007 are other sites on this VPS);
-# point the VPS's web server / proxy (nginx, Caddy, …) for tohfaah.com at http://127.0.0.1:3008.
+# Production website for https://tohfaah.com (API: https://tohfaah.online). Serves on 127.0.0.1:3001 (3000, 3006 and 3007 are other sites on this VPS);
+# point the VPS's web server / proxy (nginx, Caddy, …) for tohfaah.com at http://127.0.0.1:3001.
 #   git pull && docker compose -f docker-compose.prod.yml up -d --build
 services:
   web:
@@ -11,4 +11,4 @@ services:
         NEXT_PUBLIC_DEFAULT_TENANT: cafe-1bhk
         NEXT_PUBLIC_TENANT_LOCKED: "true"
     restart: unless-stopped
-    ports: ["127.0.0.1:3008:3000"]
+    ports: ["127.0.0.1:3001:3000"]
