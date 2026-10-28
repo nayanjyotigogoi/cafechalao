@@ -52,7 +52,7 @@ The site is built into a small Node server image (`Dockerfile`). `NEXT_PUBLIC_*`
 docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-This serves the site on `127.0.0.1:3000`. HTTPS for `https://tohfaah.com` comes from the Caddy proxy in the backend repository, which forwards that domain to this port. Deploy the backend first; see its README.
+The website joins the private `cafechalao` Docker network that the backend creates, and the backend's Caddy proxy serves it on `https://tohfaah.com` with HTTPS. Start the backend first; see its README.
 
 ## Folder layout
 
