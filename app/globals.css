@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens (shared/theme). Strawberry Matcha is the CafeChalao default.
+ * Each café overrides --primary and --accent at runtime from its brand settings (ThemeProvider);
+ * every other colour is derived from those two, so no screen hard-codes a café colour.
+ */
+:root {
+  --primary: #5e6b33; /* deep matcha: buttons, links */
+  --accent: #f9d1d9; /* strawberry: tints, hero */
+  --on-primary: var(--on-primary-light, #ffffff);
+
+  /* Exact Strawberry Matcha values from the wireframes */
+  --matcha: #838f58;
+  --bg: #fff6f8;
+  --paper: #ffffff;
+  --ink: #2f3322;
+  --mute: #6e7356;
+  --line: #efcbd3;
+  --fill: #f9d1d9;
+  --brand: var(--primary);
+  --brand-soft: color-mix(in srgb, var(--primary) 12%, #ffffff);
+  --rose: #c2566e;
+  --ok: #3e7d4f;
+  --warn: #a9770a;
+  --info: #2b6f9a;
+  --shadow: 0 1px 2px rgb(47 51 34 / 0.06), 0 4px 16px rgb(47 51 34 / 0.06);
+  color-scheme: light;
+}
+
+/* A café with its own colours: tints are derived from its accent instead of the CafeChalao defaults. */
+:root[data-custom-brand] {
+  --bg: color-mix(in srgb, var(--accent) 18%, #ffffff);
+  --line: color-mix(in srgb, var(--accent) 82%, #8a6a70 18%);
+  --fill: var(--accent);
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-custom-brand]:not([data-theme="light"]) {
+    --fill: color-mix(in srgb, var(--accent) 16%, #2a2426);
+    --brand: color-mix(in srgb, var(--primary) 55%, #ffffff);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1e1a1b;
+    --paper: #2a2426;
+    --ink: #f3e9eb;
+    --mute: #b3a9ab;
+    --line: #4a3f42;
+    --fill: #3a2e32;
+    --brand: #a9b67a;
+    --brand-soft: color-mix(in srgb, var(--primary) 30%, #2a2426);
+    --rose: #e58ba0;
+    --ok: #6cc08a;
+    --warn: #d9ad3c;
+    --info: #7cb7dc;
+    --on-primary: #1e1a1b;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1e1a1b;
+  --paper: #2a2426;
+  --ink: #f3e9eb;
+  --mute: #b3a9ab;
+  --line: #4a3f42;
+  --fill: #3a2e32;
+  --brand: #a9b67a;
+  --brand-soft: color-mix(in srgb, var(--primary) 30%, #2a2426);
+  --rose: #e58ba0;
+  --ok: #6cc08a;
+  --warn: #d9ad3c;
+  --info: #7cb7dc;
+  --on-primary: #1e1a1b;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-fill: var(--fill);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-on-brand: var(--on-primary);
+  --color-rose: var(--rose);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-info: var(--info);
+  --font-disp: var(--font-eczar), "Noto Serif Devanagari", Georgia, serif;
+  --font-sans: var(--font-mukta), "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-logo: var(--font-fraunces), Georgia, serif;
+  --font-tag: var(--font-sora), system-ui, sans-serif;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--ink);
+}
+body {
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.img-ph {
+  background: repeating-linear-gradient(45deg, var(--fill) 0 6px, transparent 6px 12px);
+}
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* Large touch targets for POS and kitchen (SRS 9: 48 px). */
+.touch {
+  min-height: 48px;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .print-receipt {
+    width: 72mm;
+    margin: 0;
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,13 @@
+# Local website in Docker on http://localhost:3001, using the API on http://localhost:8000
+# (the backend's own docker-compose.yml, or php artisan serve). Or skip Docker: npm run dev.
+#   docker compose up --build
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_API_MODE: http
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+        NEXT_PUBLIC_DEFAULT_TENANT: cafe-1bhk
+        NEXT_PUBLIC_TENANT_LOCKED: "false"
+    ports: ["3001:3000"]
