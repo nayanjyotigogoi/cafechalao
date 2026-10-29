@@ -52,11 +52,11 @@ export function MenuPicker({ onPick, counts, layout = "pos" }: { onPick: (l: Pic
         <div className={cx("grid content-start gap-2 overflow-y-auto", layout === "pos" ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2")}>
           {items.map((i) => (
             <button key={i.id} onClick={() => tap(i)} disabled={!i.available_now}
-              className={cx("relative flex min-h-20 cursor-pointer flex-col gap-1 rounded-xl border-[1.5px] bg-paper p-2.5 text-left active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45", counts?.[i.id] ? "border-brand" : "border-line")}>
+              className={cx("press relative flex min-h-20 cursor-pointer flex-col gap-1 rounded-xl border-[1.5px] bg-paper p-2.5 text-left disabled:cursor-not-allowed disabled:opacity-45", counts?.[i.id] ? "border-brand" : "border-line")}>
               <div className="flex items-center gap-1.5"><FoodMark type={i.food_type} /><span className="num text-[10px] text-mute">{i.code}</span></div>
               <b className="text-[13px] leading-tight">{i.name}</b>
               <span className="num mt-auto text-xs">{i.available_now ? formatINR(i.variants[0]?.price ?? i.price) : "Out of stock"}</span>
-              {!!counts?.[i.id] && <span className="num absolute right-2 top-2 grid min-w-6 place-items-center rounded-full bg-ink px-1.5 text-xs text-bg">{counts[i.id]}</span>}
+              {!!counts?.[i.id] && <span key={counts[i.id]} className="anim-bump num absolute right-2 top-2 grid min-w-6 place-items-center rounded-full bg-ink px-1.5 text-xs text-bg">{counts[i.id]}</span>}
             </button>
           ))}
         </div>

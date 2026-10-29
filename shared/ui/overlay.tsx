@@ -22,13 +22,13 @@ export function Modal({ open, onClose, title, children, footer, wide, className 
   }, [open, onClose]);
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="anim-backdrop fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div
         ref={ref}
         role="dialog"
         aria-modal="true"
         className={cx(
-          "flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border-[1.5px] border-line bg-paper shadow-xl sm:rounded-2xl",
+          "anim-dialog flex max-h-[92dvh] w-full flex-col overflow-hidden rounded-t-3xl border-[1.5px] border-line bg-paper shadow-xl sm:rounded-2xl",
           wide ? "sm:max-w-3xl" : "sm:max-w-lg",
           className,
         )}
@@ -67,7 +67,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={t.id}
             className={cx(
-              "pointer-events-auto max-w-md rounded-xl px-4 py-3 text-sm font-medium shadow-lg",
+              "anim-rise pointer-events-auto max-w-md rounded-xl px-4 py-3 text-sm font-medium shadow-lg",
               t.tone === "err" ? "bg-rose text-white" : t.tone === "info" ? "bg-ink text-bg" : "bg-ok text-white",
             )}
           >

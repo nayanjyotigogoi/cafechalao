@@ -47,7 +47,7 @@ function OrderMode() {
       <div className={cx("grid gap-3", options.length > 1 && "sm:grid-cols-2")}>
         {options.map((o) => (
           <button key={o.v} onClick={() => pick(o.v)} className="text-left">
-            <Card className={cx("flex h-full cursor-pointer flex-col gap-2 p-5 transition hover:border-brand", c.mode_set && c.order_type === o.v && "border-[2.5px] border-brand")}>
+            <Card className={cx("lift flex h-full cursor-pointer flex-col gap-2 p-5 hover:border-brand", c.mode_set && c.order_type === o.v && "border-[2.5px] border-brand")}>
               <Icon name={o.icon} size={46} />
               <b className="font-disp text-2xl">{o.title}</b>
               <span className="text-sm text-mute">{o.text}</span>

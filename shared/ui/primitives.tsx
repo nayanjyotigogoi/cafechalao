@@ -17,7 +17,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLBut
         ref={ref}
         disabled={disabled || loading}
         className={cx(
-          "inline-flex items-center justify-center gap-2 rounded-xl border-[1.5px] font-semibold transition-colors select-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap",
+          "inline-flex items-center justify-center gap-2 rounded-xl border-[1.5px] font-semibold press select-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer whitespace-nowrap",
           size === "sm" && "min-h-9 px-3 text-[13px]",
           size === "md" && "min-h-11 px-4 text-sm",
           size === "lg" && "min-h-12 px-5 text-base",

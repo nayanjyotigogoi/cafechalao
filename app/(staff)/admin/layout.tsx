@@ -76,7 +76,7 @@ function Shell({ children }: { children: ReactNode }) {
         <nav className="no-print hidden shrink-0 gap-1 border-r-[1.5px] border-line bg-paper p-2 lg:sticky lg:top-[55px] lg:flex lg:h-[calc(100dvh-55px)] lg:w-56 lg:flex-col lg:overflow-y-auto">
           {links}
         </nav>
-        <main className="min-w-0 flex-1 p-4 md:p-6">{children}</main>
+        <main className="min-w-0 flex-1 p-4 md:p-6"><div key={path} className="anim-page">{children}</div></main>
       </div>
       <PoweredBy className="no-print" />
     </div>

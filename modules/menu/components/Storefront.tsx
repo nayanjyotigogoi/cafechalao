@@ -97,7 +97,7 @@ export function Storefront({ tableName, scanned }: { tableName?: string | null; 
       </div>
 
       <div className="flex items-start gap-6">
-        <div className="grid min-w-0 flex-1 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger grid min-w-0 flex-1 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((i) => (
             <ItemCard key={i.id} item={i} qty={cart.qtyOf(c, i.id)} onAdd={() => add(i)} onMinus={() => {
               const line = [...c.lines].reverse().find((l) => l.item_id === i.id);
@@ -112,9 +112,9 @@ export function Storefront({ tableName, scanned }: { tableName?: string | null; 
       </div>
 
       {count > 0 && (
-        <Link href="/cart" className="fixed inset-x-4 bottom-20 z-30 lg:hidden">
+        <Link href="/cart" className="anim-rise fixed inset-x-4 bottom-20 z-30 lg:hidden">
           <Button variant="primary" size="lg" block className="shadow-lg">
-            {count} item{count > 1 ? "s" : ""} · {formatINR(cartValue(c))} · {t("View cart")} →
+            <span key={count} className="anim-bump inline-block">{count} item{count > 1 ? "s" : ""}</span> · {formatINR(cartValue(c))} · {t("View cart")} →
           </Button>
         </Link>
       )}
@@ -129,7 +129,7 @@ function ItemCard({ item: i, qty, onAdd, onMinus }: { item: MenuItem; qty: numbe
   const unavailable = !i.available_now;
   const from = i.variants.length ? Math.min(...i.variants.map((v) => v.price)) : i.price;
   return (
-    <Card className={cx("flex gap-3 p-3 sm:flex-col", unavailable && "opacity-55")}>
+    <Card className={cx("lift flex gap-3 p-3 sm:flex-col", unavailable && "opacity-55")}>
       {i.photo_url ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={i.photo_url} alt={i.name} loading="lazy" className="size-24 shrink-0 rounded-xl object-cover sm:h-36 sm:w-full" />

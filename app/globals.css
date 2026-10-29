@@ -195,3 +195,77 @@ body {
     font-size: 11px;
   }
 }
+
+/*
+ * Motion: short, soft animations (150–350 ms) so the app feels alive without slowing anyone down.
+ * Everything is switched off when the device asks for reduced motion.
+ */
+@keyframes cc-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cc-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cc-pop {
+  from { opacity: 0; transform: scale(0.96) translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes cc-sheet {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+@keyframes cc-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+@keyframes cc-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+/*
+ * A page or screen appearing. "backwards" (not "both"): once finished the page keeps no transform, otherwise
+ * popups and the floating cart bar inside it would be positioned against the page instead of the screen.
+ */
+.anim-page { animation: cc-fade-up 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+/* Popup backdrop and the popup itself: slides up from the bottom on phones, pops in on bigger screens */
+.anim-backdrop { animation: cc-fade 0.2s ease-out both; }
+.anim-dialog { animation: cc-sheet 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (min-width: 640px) {
+  .anim-dialog { animation: cc-pop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+}
+/* Toasts and the floating cart bar */
+.anim-rise { animation: cc-rise 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+/* A number that just changed (cart count) */
+.anim-bump { animation: cc-bump 0.35s ease-out; }
+/* Lists whose items float in one after another (first 12 staggered, the rest together) */
+.stagger > * { animation: cc-fade-up 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.stagger > :nth-child(2) { animation-delay: 30ms; }
+.stagger > :nth-child(3) { animation-delay: 60ms; }
+.stagger > :nth-child(4) { animation-delay: 90ms; }
+.stagger > :nth-child(5) { animation-delay: 120ms; }
+.stagger > :nth-child(6) { animation-delay: 150ms; }
+.stagger > :nth-child(7) { animation-delay: 180ms; }
+.stagger > :nth-child(8) { animation-delay: 210ms; }
+.stagger > :nth-child(9) { animation-delay: 240ms; }
+.stagger > :nth-child(10) { animation-delay: 270ms; }
+.stagger > :nth-child(11) { animation-delay: 300ms; }
+.stagger > :nth-child(n + 12) { animation-delay: 330ms; }
+/* Cards you can tap lift a little on hover */
+.lift { transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+@media (hover: hover) {
+  .lift:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+}
+/* Buttons and tappable things sink slightly when pressed */
+.press { transition: transform 0.12s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, filter 0.15s ease; }
+.press:active:not(:disabled) { transform: scale(0.97); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

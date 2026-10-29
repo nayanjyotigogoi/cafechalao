@@ -71,14 +71,14 @@ function Shell({ children }: { children: ReactNode }) {
             )}
             <Link href="/cart" className="hidden md:block">
               <Button size="sm" variant="primary">
-                {t("Cart")} · {count}
+                {t("Cart")} · <span key={count} className="anim-bump inline-block">{count}</span>
               </Button>
             </Link>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-28 pt-4 md:pb-10">{children}</main>
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-28 pt-4 md:pb-10"><div key={path} className="anim-page">{children}</div></main>
 
       <PoweredBy className="pb-20 md:pb-4" />
 
@@ -88,7 +88,7 @@ function Shell({ children }: { children: ReactNode }) {
             const on = x.href === "/" ? path === "/" || path.startsWith("/t/") : path === x.href || path.startsWith(x.href + "/");
             return (
               <Link key={x.href} href={x.href} className={cx("flex min-h-14 flex-1 flex-col items-center justify-center text-[11px]", on ? "font-semibold text-brand" : "text-mute")}>
-                <Icon name={x.icon} size={23} className="mb-0.5" />
+                <Icon name={x.icon} size={23} className={cx("mb-0.5 transition-transform duration-200", on && "-translate-y-0.5 scale-110")} />
                 {x.label}
               </Link>
             );
