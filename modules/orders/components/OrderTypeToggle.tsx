@@ -4,14 +4,15 @@ import { cart, useCart } from "@/modules/orders/cart";
 import { useT } from "@/shared/i18n";
 import { cx } from "@/shared/lib/format";
 import { useSettings } from "@/shared/tenant/TenantProvider";
+import { Icon } from "@/shared/ui/icons";
 
 /** Ordering from outside the café: what this café offers among Delivery and Takeaway, Delivery first. */
 export function useOutsideTypes() {
   const s = useSettings();
   const f = s.flags.features;
   return [
-    ...(f.delivery && s.delivery.enabled ? [{ v: "delivery" as const, icon: "🛵" }] : []),
-    ...(f.takeaway ? [{ v: "takeaway" as const, icon: "🛍️" }] : []),
+    ...(f.delivery && s.delivery.enabled ? [{ v: "delivery" as const, icon: "scooter" as const }] : []),
+    ...(f.takeaway ? [{ v: "takeaway" as const, icon: "bag" as const }] : []),
   ];
 }
 
@@ -39,7 +40,7 @@ export function OrderTypeToggle({ className }: { className?: string }) {
       {types.map((x) => (
         <button key={x.v} role="radio" aria-checked={current === x.v} onClick={() => cart.setMode(x.v)}
           className={cx("min-h-11 flex-1 cursor-pointer rounded-xl px-3 font-semibold transition", current === x.v ? "bg-ink text-bg" : "text-mute hover:text-ink")}>
-          <span aria-hidden>{x.icon}</span> {t(x.v === "delivery" ? "Delivery" : "Takeaway")}
+          <Icon name={x.icon} size={20} className="-mt-0.5 mr-1.5 align-middle" />{t(x.v === "delivery" ? "Delivery" : "Takeaway")}
         </button>
       ))}
     </div>

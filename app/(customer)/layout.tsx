@@ -10,6 +10,7 @@ import { LanguageSwitch, useT } from "@/shared/i18n";
 import { TenantProvider, useFeature, useSettings } from "@/shared/tenant/TenantProvider";
 import { OutletMark, PoweredBy } from "@/shared/ui/brand";
 import { Button } from "@/shared/ui/primitives";
+import { Icon, type IconName } from "@/shared/ui/icons";
 
 /** Customer app shell (L3): branded entirely as the café; CafeChalao appears only in the locked footer line. */
 export default function CustomerLayout({ children }: { children: ReactNode }) {
@@ -28,12 +29,12 @@ function Shell({ children }: { children: ReactNode }) {
   const path = usePathname();
   const reservations = useFeature("reservations");
   const count = cartCount(c);
-  const tabs = [
-    { href: "/", label: t("Menu"), icon: "🍽" },
-    ...(!c.table_code ? [{ href: "/order", label: t("Order online"), icon: "🛍️" }] : []),
-    { href: "/orders", label: t("Orders"), icon: "🧾" },
-    ...(reservations ? [{ href: "/reserve", label: t("Book a table"), icon: "📅" }] : []),
-    { href: "/profile", label: t("Profile"), icon: "👤" },
+  const tabs: { href: string; label: string; icon: IconName }[] = [
+    { href: "/", label: t("Menu"), icon: "menu" },
+    ...(!c.table_code ? [{ href: "/order", label: t("Order online"), icon: "bag" }] : []),
+    { href: "/orders", label: t("Orders"), icon: "receipt" },
+    ...(reservations ? [{ href: "/reserve", label: t("Book a table"), icon: "calendar" }] : []),
+    { href: "/profile", label: t("Profile"), icon: "user" },
   ];
   const hideTabs = path.startsWith("/bill/");
 
@@ -87,7 +88,7 @@ function Shell({ children }: { children: ReactNode }) {
             const on = x.href === "/" ? path === "/" || path.startsWith("/t/") : path === x.href || path.startsWith(x.href + "/");
             return (
               <Link key={x.href} href={x.href} className={cx("flex min-h-14 flex-1 flex-col items-center justify-center text-[11px]", on ? "font-semibold text-brand" : "text-mute")}>
-                <span aria-hidden className="text-lg leading-none">{x.icon}</span>
+                <Icon name={x.icon} size={23} className="mb-0.5" />
                 {x.label}
               </Link>
             );

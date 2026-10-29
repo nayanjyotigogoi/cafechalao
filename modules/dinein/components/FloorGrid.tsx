@@ -6,6 +6,7 @@ import { formatINR } from "@/shared/lib/money";
 import type { Floor, FloorTable } from "@/shared/types/api";
 import type { TableStatus } from "@/shared/types/entities";
 import { Chip, Segmented } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** Live table map (M2.2): colour plus a text label per status so it reads without colour. */
 export const TABLE_STATUS: Record<TableStatus, { label: string; cls: string; tone: "ok" | "hot" | "warn" | "info" | "neutral" }> = {
@@ -41,7 +42,7 @@ export function FloorGrid({ floor, onPick, selected, cols = "grid-cols-3 sm:grid
               {t.session && <span className="text-[11px] text-mute">{t.session.guests} pax · {minsSince(t.session.opened_at)}m</span>}
               {t.order && <span className="num text-[11px] text-ink">{formatINR(t.order.total)}</span>}
               {t.reservation && t.status !== "occupied" && <span className="text-[11px] text-info">{t.reservation.time} · {t.reservation.name.split(" ")[0]}</span>}
-              {calling && <span className="absolute right-1.5 top-1.5 animate-pulse text-sm" title="Calling waiter">🔔</span>}
+              {calling && <span className="absolute right-1.5 top-1.5 animate-pulse text-sm" title="Calling waiter"><Icon name="bell" size={16} /></span>}
               {!t.order && t.status === "free" && <span className="text-[11px] text-mute">{t.seats} seats</span>}
             </button>
           );

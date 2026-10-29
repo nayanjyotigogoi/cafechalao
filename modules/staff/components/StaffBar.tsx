@@ -15,6 +15,7 @@ import type { Notification } from "@/shared/types/entities";
 import { OutletMark, PoweredBy } from "@/shared/ui/brand";
 import { Modal } from "@/shared/ui/overlay";
 import { Avatar, Button, Chip } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** The other working screens, with what each is for (shown in the admin menu and alerts). */
 const SCREENS = [
@@ -62,7 +63,7 @@ export function StaffBar({ title, children, compact, menu }: { title: string; ch
         </Chip>
         {session && (
           <button onClick={() => setOpen(true)} className="relative grid size-10 cursor-pointer place-items-center rounded-full hover:bg-fill" aria-label={`${unread} alerts`}>
-            🔔{unread > 0 && <span className="num absolute right-0.5 top-0.5 grid min-w-4 place-items-center rounded-full bg-rose px-1 text-[10px] text-white">{unread}</span>}
+            <Icon name="bell" size={21} />{unread > 0 && <span className="num absolute right-0.5 top-0.5 grid min-w-4 place-items-center rounded-full bg-rose px-1 text-[10px] text-white">{unread}</span>}
           </button>
         )}
         {session && (

@@ -12,6 +12,7 @@ import type { Rider } from "@/shared/types/entities";
 import { DataTable } from "@/shared/ui/data";
 import { FormModal, type Values } from "@/shared/ui/form";
 import { Button, Card, Chip, Label, Money, PageTitle, Segmented, Select } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /**
  * Delivery and rider tab (M8): own staff and freelance riders, assignment by owner/manager, settlement at day close.
@@ -40,7 +41,7 @@ export default function DeliveryAdmin() {
               <div className="text-sm">{d.order?.customer_name} · {d.order?.address_text}</div>
               <div className="text-xs text-mute">{d.distance_km} km · charge {formatINR(d.charge)} · {d.to_collect ? `collect ${formatINR(d.to_collect)} (${label(d.order?.payment_method ?? "")})` : "prepaid"}</div>
               <div className="flex items-center gap-2">
-                {d.rider_name && <Chip tone="info">🛵 {d.rider_name}</Chip>}
+                {d.rider_name && <Chip tone="info"><Icon name="scooter" size={14} className="mr-1 align-[-2px]" />{d.rider_name}</Chip>}
                 {!["picked_up", "on_the_way"].includes(d.status) && (
                   <Select className="max-w-xs" value="" onChange={(ev) => assign.mutate({ id: d.id, r: ev.target.value === "all" ? (riders.data ?? []).filter((r) => r.online && r.active).map((r) => r.id) : ev.target.value === "freelance" ? (riders.data ?? []).filter((r) => r.type === "freelance" && r.online).map((r) => r.id) : [ev.target.value] })} aria-label="Assign rider">
                     <option value="">{d.status === "requested" ? "Waiting for accept… reassign" : "Assign rider"}</option>

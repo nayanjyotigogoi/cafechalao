@@ -25,6 +25,7 @@ import type { DeliveryRow, Floor, OrderDetail, OrderListRow } from "@/shared/typ
 import type { Customer, Invoice, OrderType, PaymentMode, Rider } from "@/shared/types/entities";
 import { Modal, useToast } from "@/shared/ui/overlay";
 import { Button, Chip, Empty, ErrorText, Field, Input, Label, Loading, MoneyInput, Segmented } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** POS (M3.1): dine-in, takeaway, counter token and delivery billing, sized for tablet touch. */
 export default function POSPage() {
@@ -312,7 +313,7 @@ function OnlinePanel({ orders, onAccept, onReject, onHandOver, onLoad, onConfirm
                 <span className="num ml-auto font-semibold">{formatINR(o.total)}</span>
               </div>
               <div className="text-sm">{o.customer_name ?? "Guest"} {o.customer_phone && <span className="text-mute">· {o.customer_phone}</span>}</div>
-              {o.address_text && <div className="text-xs text-mute">📍 {o.address_text}</div>}
+              {o.address_text && <div className="flex items-start gap-1 text-xs text-mute"><Icon name="pin" size={14} className="mt-px" />{o.address_text}</div>}
               {o.pickup_time && <div className="text-xs text-mute">Pickup {o.pickup_time}</div>}
               <div className="text-xs">{o.items.map((i) => `${i.qty}× ${i.name}`).join(", ")}{o.note && <span className="text-rose"> · “{o.note}”</span>}</div>
               <div className="text-[11px] text-mute">{label(o.status)} · {fmtTime(o.created_at)} ({minsSince(o.created_at)}m ago)</div>

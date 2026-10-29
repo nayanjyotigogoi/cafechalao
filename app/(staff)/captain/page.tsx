@@ -20,6 +20,7 @@ import type { Notification } from "@/shared/types/entities";
 import { Modal } from "@/shared/ui/overlay";
 import { Avatar, Button, Card, Chip, Empty, Input, Label, Loading, Select } from "@/shared/ui/primitives";
 import { PoweredBy } from "@/shared/ui/brand";
+import { Icon } from "@/shared/ui/icons";
 
 /** Captain (waiter) app (M2.4): table map, open table, attach customer, add items with notes and course, KOT, bill. */
 export default function CaptainPage() {
@@ -75,7 +76,7 @@ function Captain({ session }: { session: StaffSession }) {
           <div className="flex flex-col gap-2">
             {floor.data?.tables.filter((x) => x.session?.waiter_called_at).map((x) => (
               <Card key={x.id} className="flex items-center gap-2 border-rose">
-                <span className="flex-1">🔔 {x.name} calling waiter</span><Chip tone="hot">{ago(x.session!.waiter_called_at)}</Chip>
+                <span className="flex flex-1 items-center gap-1.5"><Icon name="bell" size={16} />{x.name} calling waiter</span><Chip tone="hot">{ago(x.session!.waiter_called_at)}</Chip>
                 <Button size="sm" onClick={() => dineinApi.ackCall(x.id)}>On my way</Button>
               </Card>
             ))}
@@ -146,7 +147,7 @@ function TableSheet({ table, floor, onClose }: { table: FloorTable; floor: Floor
   return (
     <Modal open onClose={onClose} title={<span>{table.name} <span className={cx("text-sm", st.cls.split(" ")[1])}>· {st.label}</span></span>} wide>
       <div className="flex flex-col gap-3">
-        {table.session?.waiter_called_at && <Button variant="danger" onClick={() => dineinApi.ackCall(table.id)}>🔔 Calling waiter · acknowledge</Button>}
+        {table.session?.waiter_called_at && <Button variant="danger" onClick={() => dineinApi.ackCall(table.id)}><Icon name="bell" size={16} className="mr-1" />Calling waiter · acknowledge</Button>}
         {!d && table.status !== "occupied" && (
           <div className="flex flex-wrap items-center gap-2">
             <Label>Guests</Label>

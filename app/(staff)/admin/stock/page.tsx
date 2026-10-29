@@ -17,6 +17,7 @@ import { DataTable } from "@/shared/ui/data";
 import { FormModal, type Values } from "@/shared/ui/form";
 import { Modal, useToast } from "@/shared/ui/overlay";
 import { Button, Card, Chip, ErrorText, Field, Input, Label, Loading, Money, MoneyInput, PageTitle, ProgressBar, Segmented, Select, Stat } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** Stock and purchase (M5): every sale deducts ingredients by recipe; PR → approval → PO → GRN → payment. */
 type Tab = "inventory" | "recipes" | "requests" | "pos" | "grn" | "suppliers" | "payables" | "wastage" | "count" | "ledger";
@@ -77,7 +78,7 @@ function Inventory({ onAutoPO, autoBusy }: { onAutoPO: () => void; autoBusy: boo
       )}
       {s && s.low + s.out > 0 && can("stock.request") && (
         <Card className="flex flex-wrap items-center gap-3 border-none bg-fill">
-          <span className="flex-1 text-sm">💡 {s.low + s.out} items are low. Create one purchase order per supplier ({s.suggestion.map((x) => x.supplier).join(", ")})?</span>
+          <Icon name="bulb" size={20} /><span className="flex-1 text-sm">{s.low + s.out} items are low. Create one purchase order per supplier ({s.suggestion.map((x) => x.supplier).join(", ")})?</span>
           <Button variant="primary" loading={autoBusy} onClick={onAutoPO}>Auto-create POs</Button>
         </Card>
       )}

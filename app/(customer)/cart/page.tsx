@@ -20,6 +20,7 @@ import type { QuoteResult } from "@/shared/types/api";
 import type { Address, OrderType, PaymentMode } from "@/shared/types/entities";
 import { Modal, useToast } from "@/shared/ui/overlay";
 import { Button, Card, Chip, Empty, ErrorText, Field, FoodMark, Input, Label, Money, Textarea } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** Cart and checkout (M1.4–M1.6): order type, coupon, points, gift card, tip, GST breakdown, payment. */
 export default function CartPage() {
@@ -136,7 +137,7 @@ export default function CartPage() {
 
         {c.table_code ? (
           <Card className="flex items-center gap-2 text-sm">
-            <span aria-hidden>🍽</span>
+            <Icon name="menu" size={20} />
             <span>Dine-in at <b>{c.table_name}</b>. We&apos;ll bring your order to the table.</span>
           </Card>
         ) : null}

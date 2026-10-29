@@ -10,6 +10,7 @@ import { useT } from "@/shared/i18n";
 import { useTitle } from "@/shared/tenant/TenantProvider";
 import { Button, Card, Empty, Loading } from "@/shared/ui/primitives";
 import Link from "next/link";
+import { Icon } from "@/shared/ui/icons";
 
 /** Table QR (M2.3): the scan opens the branded menu tied to that table. Sign-in is optional for dine-in. */
 export default function TablePage() {
@@ -31,7 +32,7 @@ export default function TablePage() {
         <span className="flex-1 text-sm">
           Scanned at <b>{info.data.table.name}</b> · {info.data.table.area} · Dine-in
         </span>
-        <Button size="sm" onClick={() => call.mutate(undefined)} loading={call.isPending}>🔔 {t("Call waiter")}</Button>
+        <Button size="sm" onClick={() => call.mutate(undefined)} loading={call.isPending}><Icon name="bell" size={16} className="mr-1" />{t("Call waiter")}</Button>
         {info.data.open_order_id && (
           <>
             <Link href={`/orders/${info.data.open_order_id}?table=${code}`}><Button size="sm">Your order</Button></Link>

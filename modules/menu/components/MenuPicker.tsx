@@ -47,7 +47,7 @@ export function MenuPicker({ onPick, counts, layout = "pos" }: { onPick: (l: Pic
         ))}
       </div>
       <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-2 p-2">
-        <Input placeholder="🔍 Search or type item code (e.g. 101)" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search items"
+        <Input placeholder="Search or type item code (e.g. 101)" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search items"
           onKeyDown={(e) => { if (e.key === "Enter" && items[0]) { tap(items[0]); setQ(""); } }} />
         <div className={cx("grid content-start gap-2 overflow-y-auto", layout === "pos" ? "grid-cols-2 sm:grid-cols-3 xl:grid-cols-4" : "grid-cols-2")}>
           {items.map((i) => (

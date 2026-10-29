@@ -14,6 +14,7 @@ import { DataTable } from "@/shared/ui/data";
 import { FormFields, FormModal, type Values } from "@/shared/ui/form";
 import { OutletMark, PoweredBy } from "@/shared/ui/brand";
 import { Button, Card, Chip, ErrorText, Field, Input, Label, MoneyInput, Toggle } from "@/shared/ui/primitives";
+import { Icon } from "@/shared/ui/icons";
 
 /** Settings sections (Core/Settings), shared by Settings and the setup wizard. Each saves one /settings/<section>. */
 
@@ -192,7 +193,7 @@ export function PaymentSection({ onSaved }: { onSaved?: () => void }) {
         </label>
         <div className="flex min-w-48 flex-1 flex-col items-start gap-2">
           <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border-[1.5px] border-line bg-paper px-4 font-semibold hover:border-brand">
-            📷 {v.upi_qr_url ? "Change QR image" : "Upload QR image"}
+            <Icon name="camera" size={20} />{v.upi_qr_url ? "Change QR image" : "Upload QR image"}
             <input type="file" accept="image/*" className="sr-only" onChange={pickQr} />
           </label>
           {!!v.upi_qr_url && <Button size="sm" variant="ghost" onClick={() => setV({ ...v, upi_qr_url: null })}>Remove QR</Button>}

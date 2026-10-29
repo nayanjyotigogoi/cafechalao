@@ -12,27 +12,28 @@ import type { Permission } from "@/shared/lib/permissions";
 import { useSettings } from "@/shared/tenant/TenantProvider";
 import type { Approval, FeatureKey } from "@/shared/types/entities";
 import { PoweredBy } from "@/shared/ui/brand";
+import { Icon, type IconName } from "@/shared/ui/icons";
 
 /** Outlet admin and owner dashboard (L2). Menu entries follow the user's permissions and the café's features. */
 
-interface NavItem { href: string; label: string; icon: string; perm?: Permission; anyOf?: Permission[]; feature?: FeatureKey }
+interface NavItem { href: string; label: string; icon: IconName; perm?: Permission; anyOf?: Permission[]; feature?: FeatureKey }
 const NAV: NavItem[] = [
-  { href: "/admin", label: "Dashboard", icon: "📊", anyOf: ["dashboard.owner", "reports.view"] },
-  { href: "/admin/orders", label: "Orders", icon: "🧾", anyOf: ["pos.bill", "reports.view"] },
-  { href: "/admin/menu", label: "Menu", icon: "🍽", perm: "menu.edit" },
-  { href: "/admin/tables", label: "Tables & QR", icon: "🪑", perm: "tables.manage", feature: "dine_in" },
-  { href: "/admin/reservations", label: "Reservations", icon: "📅", perm: "reservations.manage", feature: "reservations" },
-  { href: "/admin/customers", label: "Customers", icon: "👥", anyOf: ["customers.view", "customers.create"] },
-  { href: "/admin/marketing", label: "Marketing", icon: "🎁", perm: "marketing.manage" },
-  { href: "/admin/stock", label: "Stock & purchase", icon: "📦", perm: "stock.view", feature: "stock" },
-  { href: "/admin/expenses", label: "Expenses", icon: "💸", perm: "expenses.create", feature: "expenses" },
-  { href: "/admin/staff", label: "Staff", icon: "🧑‍🍳", perm: "staff.manage", feature: "staff" },
-  { href: "/admin/delivery", label: "Delivery", icon: "🛵", perm: "delivery.assign", feature: "delivery" },
-  { href: "/admin/aggregators", label: "Swiggy/Zomato", icon: "📱", perm: "aggregators.manage", feature: "aggregator_tracker" },
-  { href: "/admin/reports", label: "Reports", icon: "📈", perm: "reports.view" },
-  { href: "/admin/approvals", label: "Approvals", icon: "✅", perm: "approvals.decide" },
-  { href: "/admin/audit", label: "Audit log", icon: "🔍", perm: "audit.view" },
-  { href: "/admin/settings", label: "Settings", icon: "⚙️", perm: "settings.manage" },
+  { href: "/admin", label: "Dashboard", icon: "chart", anyOf: ["dashboard.owner", "reports.view"] },
+  { href: "/admin/orders", label: "Orders", icon: "receipt", anyOf: ["pos.bill", "reports.view"] },
+  { href: "/admin/menu", label: "Menu", icon: "menu", perm: "menu.edit" },
+  { href: "/admin/tables", label: "Tables & QR", icon: "qr", perm: "tables.manage", feature: "dine_in" },
+  { href: "/admin/reservations", label: "Reservations", icon: "calendar", perm: "reservations.manage", feature: "reservations" },
+  { href: "/admin/customers", label: "Customers", icon: "users", anyOf: ["customers.view", "customers.create"] },
+  { href: "/admin/marketing", label: "Marketing", icon: "gift", perm: "marketing.manage" },
+  { href: "/admin/stock", label: "Stock & purchase", icon: "box", perm: "stock.view", feature: "stock" },
+  { href: "/admin/expenses", label: "Expenses", icon: "wallet", perm: "expenses.create", feature: "expenses" },
+  { href: "/admin/staff", label: "Staff", icon: "chef", perm: "staff.manage", feature: "staff" },
+  { href: "/admin/delivery", label: "Delivery", icon: "scooter", perm: "delivery.assign", feature: "delivery" },
+  { href: "/admin/aggregators", label: "Swiggy/Zomato", icon: "phone", perm: "aggregators.manage", feature: "aggregator_tracker" },
+  { href: "/admin/reports", label: "Reports", icon: "trend", perm: "reports.view" },
+  { href: "/admin/approvals", label: "Approvals", icon: "check", perm: "approvals.decide" },
+  { href: "/admin/audit", label: "Audit log", icon: "search", perm: "audit.view" },
+  { href: "/admin/settings", label: "Settings", icon: "gear", perm: "settings.manage" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -54,7 +55,7 @@ function Shell({ children }: { children: ReactNode }) {
   const badge = (n: NavItem) => n.href === "/admin/approvals" && !!pending.data?.length && <span className="num ml-auto rounded-full bg-rose px-1.5 text-[11px] text-white">{pending.data.length}</span>;
   const links = items.map((n) => (
     <Link key={n.href} href={n.href} className={cx("flex min-h-11 shrink-0 items-center gap-2 rounded-lg px-3 text-sm", on(n.href) ? "bg-fill font-semibold" : "hover:bg-fill/50")}>
-      <span aria-hidden>{n.icon}</span>{t(n.label)}{badge(n)}
+      <Icon name={n.icon} size={19} />{t(n.label)}{badge(n)}
     </Link>
   ));
   const quick = [

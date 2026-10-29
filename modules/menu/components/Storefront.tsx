@@ -51,7 +51,7 @@ export function Storefront({ tableName, scanned }: { tableName?: string | null; 
 
   return (
     <div className="flex flex-col gap-4">
-      <section className="flex flex-col gap-4 rounded-3xl bg-fill p-5 md:flex-row md:items-center md:p-8">
+      <section className="flex flex-col gap-4 rounded-3xl bg-fill pastel p-5 md:flex-row md:items-center md:p-8">
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <Label>{isOpen ? `Open now · closes ${s.outlet.closing_time}` : `Closed · opens ${s.outlet.opening_time}`}</Label>
           {customer && <div className="text-sm">{t(greeting())}, {customer.name.split(" ")[0]} 👋</div>}
@@ -92,7 +92,7 @@ export function Storefront({ tableName, scanned }: { tableName?: string | null; 
               {x.name}
             </Chip>
           ))}
-          <Chip onClick={() => setVegOnly((v) => !v)} active={vegOnly}>🟢 {t("Veg only")}</Chip>
+          <Chip onClick={() => setVegOnly((v) => !v)} active={vegOnly}><span aria-hidden className="mr-1 inline-block size-2.5 rounded-full bg-ok" />{t("Veg only")}</Chip>
         </div>
       </div>
 

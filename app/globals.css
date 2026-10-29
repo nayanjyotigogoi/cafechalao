@@ -36,45 +36,96 @@
 }
 @media (prefers-color-scheme: dark) {
   :root[data-custom-brand]:not([data-theme="light"]) {
-    --fill: color-mix(in srgb, var(--accent) 16%, #2a2426);
+    --fill: color-mix(in srgb, var(--accent) 16%, #2a2430);
     --brand: color-mix(in srgb, var(--primary) 55%, #ffffff);
   }
 }
 
+/*
+ * Dark mode, "Pastel cards on berry": a deep berry page, and the café's pastel cards keep their light colours.
+ * Buttons use a light matcha with dark text.
+ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1e1a1b;
-    --paper: #2a2426;
-    --ink: #f3e9eb;
-    --mute: #b3a9ab;
-    --line: #4a3f42;
-    --fill: #3a2e32;
-    --brand: #a9b67a;
-    --brand-soft: color-mix(in srgb, var(--primary) 30%, #2a2426);
+    --bg: #1f1a22;
+    --paper: #2a2430;
+    --ink: #f6eef1;
+    --mute: #b8aeb4;
+    --line: #3d3543;
+    --fill: #352e3b;
+    --brand: #c9d79a;
+    --brand-soft: color-mix(in srgb, #c9d79a 18%, #2a2430);
     --rose: #e58ba0;
     --ok: #6cc08a;
     --warn: #d9ad3c;
     --info: #7cb7dc;
-    --on-primary: #1e1a1b;
+    --on-primary: #2f3322;
     --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1e1a1b;
-  --paper: #2a2426;
-  --ink: #f3e9eb;
-  --mute: #b3a9ab;
-  --line: #4a3f42;
-  --fill: #3a2e32;
-  --brand: #a9b67a;
-  --brand-soft: color-mix(in srgb, var(--primary) 30%, #2a2426);
-  --rose: #e58ba0;
-  --ok: #6cc08a;
-  --warn: #d9ad3c;
-  --info: #7cb7dc;
-  --on-primary: #1e1a1b;
-  color-scheme: dark;
+    --bg: #1f1a22;
+    --paper: #2a2430;
+    --ink: #f6eef1;
+    --mute: #b8aeb4;
+    --line: #3d3543;
+    --fill: #352e3b;
+    --brand: #c9d79a;
+    --brand-soft: color-mix(in srgb, #c9d79a 18%, #2a2430);
+    --rose: #e58ba0;
+    --ok: #6cc08a;
+    --warn: #d9ad3c;
+    --info: #7cb7dc;
+    --on-primary: #2f3322;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    color-scheme: dark;
+}
+
+/*
+ * .pastel (dark mode only): a feature card (welcome card, headline numbers) stays in the café's pastel
+ * accent colour at night, and everything inside switches back to dark-on-light colours.
+ * In light mode the class does nothing, so those cards look exactly as before.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pastel {
+    background-color: var(--accent);
+    border-color: transparent;
+    color: var(--ink);
+    --ink: color-mix(in srgb, var(--accent) 18%, #2b1d23);
+    --mute: color-mix(in srgb, var(--accent) 35%, #5e4650);
+    --line: color-mix(in srgb, var(--accent) 70%, #2b1d23);
+    --paper: #ffffff;
+    --bg: #fff6f8; /* light text on the dark selected button (bg-ink text-bg) */
+    --fill: rgb(255 255 255 / 0.55);
+    --brand: var(--primary);
+    --brand-soft: color-mix(in srgb, var(--primary) 12%, #ffffff);
+    --on-primary: var(--on-primary-light, #ffffff);
+    --rose: #c2566e;
+    --ok: #3e7d4f;
+    --warn: #a9770a;
+    --info: #2b6f9a;
+    color-scheme: light;
+  }
+}
+:root[data-theme="dark"] .pastel {
+  background-color: var(--accent);
+  border-color: transparent;
+  color: var(--ink);
+    --ink: color-mix(in srgb, var(--accent) 18%, #2b1d23);
+    --mute: color-mix(in srgb, var(--accent) 35%, #5e4650);
+    --line: color-mix(in srgb, var(--accent) 70%, #2b1d23);
+    --paper: #ffffff;
+    --bg: #fff6f8; /* light text on the dark selected button (bg-ink text-bg) */
+    --fill: rgb(255 255 255 / 0.55);
+    --brand: var(--primary);
+    --brand-soft: color-mix(in srgb, var(--primary) 12%, #ffffff);
+    --on-primary: var(--on-primary-light, #ffffff);
+    --rose: #c2566e;
+    --ok: #3e7d4f;
+    --warn: #a9770a;
+    --info: #2b6f9a;
+    color-scheme: light;
 }
 
 @theme inline {

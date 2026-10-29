@@ -13,6 +13,7 @@ import { DataTable } from "@/shared/ui/data";
 import { FormFields, FormModal, type Values } from "@/shared/ui/form";
 import { Button, Card, Chip, Field, Label, Loading, Money, MoneyInput, PageTitle, ProgressBar, Segmented, Stars, Stat, Toggle } from "@/shared/ui/primitives";
 import { put } from "@/shared/api/client";
+import { Icon } from "@/shared/ui/icons";
 
 /** Customers and marketing (M4.2–M4.8). Campaign messages are free click-to-WhatsApp links or email in Phase 1. */
 type Tab = "budget" | "coupons" | "loyalty" | "gift" | "members" | "offers" | "greetings" | "feedback";
@@ -233,7 +234,7 @@ function Greetings() {
       {!list.data?.length && <p className="text-sm text-mute">No birthdays today among customers who allowed messages.</p>}
       {list.data?.map((g) => (
         <div key={g.customer_id + g.kind} className="flex flex-wrap items-center gap-2 rounded-xl border-[1.5px] border-line p-3 text-sm">
-          <span className="text-xl">{g.kind === "birthday" ? "🎂" : "💐"}</span>
+          <Icon name={g.kind === "birthday" ? "cake" : "flower"} size={24} />
           <span className="min-w-0 flex-1"><b>{g.name}</b> · {g.phone}<span className="block text-xs text-mute">{g.body}</span></span>
           {g.sent && <Chip tone="ok">Sent</Chip>}
           {g.whatsapp_url && <a href={g.whatsapp_url} target="_blank" rel="noreferrer" onClick={() => log.mutate({ customer_id: g.customer_id, kind: g.kind, body: g.body, channel: "whatsapp_link" })}><Button size="sm" variant="primary">WhatsApp</Button></a>}

@@ -8,6 +8,7 @@ import { cx } from "@/shared/lib/format";
 import { formatINR } from "@/shared/lib/money";
 import { useSettings, useTitle } from "@/shared/tenant/TenantProvider";
 import { Card, Empty } from "@/shared/ui/primitives";
+import { Icon, type IconName } from "@/shared/ui/icons";
 
 /**
  * Ordering from outside the café: pick Takeaway or Delivery first, then the menu.
@@ -31,9 +32,9 @@ function OrderMode() {
     router.push(next);
   };
   const options = [
-    f.takeaway && { v: "takeaway" as const, icon: "🛍️", title: t("Takeaway"), text: `Order now and pick it up at ${s.outlet.name}. Choose a pickup time at checkout.` },
-    delivery && { v: "delivery" as const, icon: "🛵", title: t("Delivery"), text: `We bring it to your door. ${s.delivery.charge_type === "flat" ? `Delivery ${formatINR(s.delivery.flat_charge)}` : "Delivery charge by order value"} · min order ${formatINR(s.delivery.min_order)}.` },
-  ].filter(Boolean) as { v: "takeaway" | "delivery"; icon: string; title: string; text: string }[];
+    f.takeaway && { v: "takeaway" as const, icon: "bag", title: t("Takeaway"), text: `Order now and pick it up at ${s.outlet.name}. Choose a pickup time at checkout.` },
+    delivery && { v: "delivery" as const, icon: "scooter", title: t("Delivery"), text: `We bring it to your door. ${s.delivery.charge_type === "flat" ? `Delivery ${formatINR(s.delivery.flat_charge)}` : "Delivery charge by order value"} · min order ${formatINR(s.delivery.min_order)}.` },
+  ].filter(Boolean) as { v: "takeaway" | "delivery"; icon: IconName; title: string; text: string }[];
 
   if (!options.length) return <Empty title="Online ordering is off">{s.outlet.name} isn&apos;t taking takeaway or delivery orders right now.</Empty>;
 
@@ -47,7 +48,7 @@ function OrderMode() {
         {options.map((o) => (
           <button key={o.v} onClick={() => pick(o.v)} className="text-left">
             <Card className={cx("flex h-full cursor-pointer flex-col gap-2 p-5 transition hover:border-brand", c.mode_set && c.order_type === o.v && "border-[2.5px] border-brand")}>
-              <span className="text-4xl" aria-hidden>{o.icon}</span>
+              <Icon name={o.icon} size={46} />
               <b className="font-disp text-2xl">{o.title}</b>
               <span className="text-sm text-mute">{o.text}</span>
               <span className="mt-auto pt-2 font-semibold text-brand">Continue →</span>

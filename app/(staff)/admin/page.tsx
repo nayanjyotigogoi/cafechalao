@@ -33,7 +33,7 @@ export default function DashboardPage() {
       {!x ? <Loading /> : (
         <>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            <Stat label={t("Sales")} value={formatINR(x.sales)} sub={x.sales_change_pct != null && <span className={x.sales_change_pct >= 0 ? "text-ok" : "text-rose"}>{x.sales_change_pct >= 0 ? "▲" : "▼"} {Math.abs(x.sales_change_pct).toFixed(0)}% {cmp}</span>} />
+            <Stat className="pastel" label={t("Sales")} value={formatINR(x.sales)} sub={x.sales_change_pct != null && <span className={x.sales_change_pct >= 0 ? "text-ok" : "text-rose"}>{x.sales_change_pct >= 0 ? "▲" : "▼"} {Math.abs(x.sales_change_pct).toFixed(0)}% {cmp}</span>} />
             <Stat label={t("Orders")} value={x.orders} sub={`Avg bill ${formatINR(x.aov)}`} />
             <Stat label="Profit estimate" value={formatINR(x.profit_estimate)} tone={x.profit_estimate < 0 ? "hot" : undefined} sub={`Food cost ${x.food_cost_pct.toFixed(0)}% · labour ${x.labour_cost_pct.toFixed(0)}%`} />
             <Stat label="Cash in hand" value={formatINR(x.cash_in_hand)} sub={`Expenses ${formatINR(x.expenses)}`} />
